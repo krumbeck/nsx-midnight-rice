@@ -1,26 +1,22 @@
 # NSX Midnight Rice 🟣
 
-> *"In dem Moment, in dem du dich in den NSX setzt, verschwindet die Angst."*
-
-Ein Arch Linux Rice inspiriert vom Honda NSX (NA1) in **Midnight Purple Pearl** —
-gebaut nach derselben Philosophie: kein Bloat, kein Kompromiss, maximale Präzision.
+Ein Arch Linux Rice inspiriert vom Honda NSX (NA1) 
 
 ---
 
-## Philosophie
+Die Entwicklung des Sportwagens folgte fünf Prinzipien:
 
-Der Honda NSX war keine Antwort auf die Frage *"Wie bauen wir einen schnellen Wagen?"*
-Er war die Antwort auf *"Wie bauen wir den perfekten Wagen?"*
+    Das Aluminium-Monocoque: Ein radikaler Verzicht auf Stahl, um ein Chassis zu schaffen, das frei von unnötigem Ballast ist und maximale strukturelle Steifigkeit bietet.
 
-Dieses Rice folgt derselben Logik:
+    Human-Machine Interface (HMI): Ein Cockpit, das den Fahrer als zentrales Rechenwerk begreift. Jedes Bedienelement ist ohne Umwege und blind erreichbar.
 
-| NSX-Prinzip | Rice-Entsprechung |
-|---|---|
-| Aluminium-Monocoque (Null Bloat) | Arch Linux — nur was gebraucht wird |
-| Human-Machine Interface | Keybinding-first, kein GUI-Overhead |
-| 311° Rundumsicht (F-16 Kanzel) | Blur + Transparenz — die Stadt atmet durch |
-| VTEC — zwei Seelen | Idle: dezent & dunkel / Load: scharf & kontrastreich |
-| Senna-Abstimmung | Jeder Wert ist bewusst gesetzt, nichts ist Default |
+    311° Rundumsicht: Inspiriert von der F-16 „Fighting Falcon“ Bubble-Canopy. Das Ziel ist eine barrierefreie Wahrnehmung der Umgebung, bei der die Maschine visuell verschwindet.
+
+    VTEC (Variable Valve Timing): Eine technologische Lösung für das „Zwei-Seelen“-Problem – hocheffizient und dezent im Leerlauf, aber sofortige Kraftentfaltung bei hoher Last.
+
+    Senna-Abstimmung: Die radikale Überprüfung jedes einzelnen Wertes auf dem Prüfstand von Suzuka, um sicherzustellen, dass keine einzige Werkseinstellung dem Zufall überlassen bleibt.
+
+NSX Midnight wurde als direkter digitaler Zwilling dieser Philosophie entwickelt. Jede Komponente dieses Arch Linux Setups ist so kalibriert, dass sie diesen mechanischen Idealen in der digitalen Infrastruktur entspricht.
 
 ---
 
@@ -131,7 +127,3 @@ Hyprland
 - [r/unixporn](https://reddit.com/r/unixporn) — Community & Inspiration
 - Honda NSX NA1 (1990–2005) — die eigentliche Blaupause
 
----
-
-*Gebaut auf einem Acer Aspire A314-22 · Pop!_OS 24.04 · für ein ThinkPad bestimmt*
-*"Elektronische Poesie. Man fährt nicht nur ein Auto — man steuert einen Pfeil durch das Herz einer digitalen Zivilisation."*
