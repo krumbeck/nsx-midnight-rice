@@ -1,0 +1,298 @@
+/* =============================================================================
+   NSX Midnight Rice — waybar/style.css
+   Ästhetik: Floating Islands — drei schwebende Segmente über Tokyo
+   Philosophie: Instrument Cluster des NSX — klar, präzise, keine Ablenkung
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   CSS Variablen — die DNA des Rice
+   Einmal ändern, überall wirksam
+   ----------------------------------------------------------------------------- */
+* {
+    --bg:           #0B0811;        /* Midnight — der Lack im Schatten         */
+    --bg-island:    rgba(11, 8, 17, 0.88);  /* Glass Cockpit Transparenz       */
+    --border:       rgba(123, 82, 171, 0.6); /* Midnight Purple — gedämpft     */
+    --purple:       #7B52AB;        /* Midnight Purple Pearl                   */
+    --magenta:      #FF00FF;        /* VTEC-Kick / Neon-Reflexion              */
+    --orange:       #FF8C00;        /* Tokyo Tower / Tachometer-Nadel          */
+    --text:         #E0DEF4;        /* Cockpit-Display                         */
+    --text-dim:     #6e6a86;        /* Inaktiv / gedämpft                      */
+    --red:          #FF4444;        /* Fehler / Critical                       */
+    --green:        #31CF7F;        /* Erfolg / Good                           */
+    --yellow:       #FF8C00;        /* Warning                                 */
+
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Die Bar selbst — transparent, nur Islands haben Hintergrund
+   ----------------------------------------------------------------------------- */
+window#waybar {
+    background: transparent;
+    color: var(--text);
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* -----------------------------------------------------------------------------
+   Island-Basis — das schwebende Segment
+   Alle drei Islands (links, mitte, rechts) bekommen diesen Look
+   ----------------------------------------------------------------------------- */
+.modules-left,
+.modules-center,
+.modules-right {
+    background: var(--bg-island);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0 8px;
+    margin: 0;
+
+    /* Blur-Effekt wird von Hyprland gerendert */
+    /* Der CSS backdrop-filter ist ein Fallback */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* -----------------------------------------------------------------------------
+   Allgemeine Modul-Basis
+   ----------------------------------------------------------------------------- */
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#battery,
+#tray {
+    padding: 4px 10px;
+    color: var(--text);
+}
+
+/* -----------------------------------------------------------------------------
+   ISLAND LINKS — Workspaces & Window
+   ----------------------------------------------------------------------------- */
+
+/* Workspace Buttons */
+#workspaces button {
+    padding: 2px 8px;
+    color: var(--text-dim);
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    min-width: 24px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+    background: rgba(123, 82, 171, 0.3);
+    color: var(--text);
+}
+
+#workspaces button.active {
+    color: var(--magenta);
+    background: rgba(255, 0, 255, 0.15);
+    border-bottom: 2px solid var(--magenta);
+}
+
+#workspaces button.urgent {
+    color: var(--orange);
+    background: rgba(255, 140, 0, 0.2);
+    animation: pulse-orange 1s infinite;
+}
+
+/* Aktives Fenster */
+#window {
+    color: var(--text-dim);
+    font-style: italic;
+    padding-left: 4px;
+}
+
+#window.empty {
+    opacity: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   ISLAND MITTE — Uhrzeit (das Tachometer-Zentrum)
+   ----------------------------------------------------------------------------- */
+#clock {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 4px 16px;
+}
+
+/* Beim Hover: Datum anzeigen — Alt-Format */
+#clock:hover {
+    color: var(--purple);
+}
+
+/* -----------------------------------------------------------------------------
+   ISLAND RECHTS — Instrument Cluster
+   ----------------------------------------------------------------------------- */
+
+/* CPU — Drehzahlmesser */
+#cpu {
+    color: var(--text);
+}
+
+#cpu.warning {
+    color: var(--yellow);
+}
+
+#cpu.critical {
+    color: var(--red);
+    animation: pulse-red 0.5s infinite;
+}
+
+/* RAM */
+#memory {
+    color: var(--text);
+}
+
+#memory.warning {
+    color: var(--yellow);
+}
+
+#memory.critical {
+    color: var(--red);
+}
+
+/* Temperatur */
+#temperature {
+    color: var(--text);
+}
+
+#temperature.critical {
+    color: var(--red);
+    animation: pulse-red 0.5s infinite;
+}
+
+/* Netzwerk */
+#network {
+    color: var(--text);
+}
+
+#network.disconnected {
+    color: var(--text-dim);
+}
+
+/* Audio */
+#pulseaudio {
+    color: var(--text);
+}
+
+#pulseaudio.muted {
+    color: var(--text-dim);
+}
+
+#pulseaudio.bluetooth {
+    color: var(--purple);
+}
+
+/* Akku — Reichweite */
+#battery {
+    color: var(--green);
+}
+
+#battery.good {
+    color: var(--green);
+}
+
+#battery.warning {
+    color: var(--yellow);
+}
+
+#battery.critical {
+    color: var(--red);
+}
+
+#battery.charging,
+#battery.plugged {
+    color: var(--green);
+    animation: pulse-green 2s infinite;
+}
+
+/* Tray */
+#tray {
+    padding: 4px 6px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: rgba(255, 140, 0, 0.2);
+    border-radius: 6px;
+}
+
+/* -----------------------------------------------------------------------------
+   Trennlinien zwischen Modulen in einer Island
+   ----------------------------------------------------------------------------- */
+#cpu,
+#memory,
+#temperature,
+#network {
+    border-right: 1px solid rgba(123, 82, 171, 0.3);
+    margin-right: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   ANIMATIONEN
+   VTEC-Prinzip: subtil im Idle, sichtbar im kritischen Zustand
+   ----------------------------------------------------------------------------- */
+
+/* Tachometer-Nadel — Orange pulsiert bei Warnung */
+@keyframes pulse-orange {
+    0%   { color: var(--orange); }
+    50%  { color: rgba(255, 140, 0, 0.4); }
+    100% { color: var(--orange); }
+}
+
+/* Kritisch — Rot pulsiert */
+@keyframes pulse-red {
+    0%   { color: var(--red); }
+    50%  { color: rgba(255, 68, 68, 0.4); }
+    100% { color: var(--red); }
+}
+
+/* Laden — Grün atmet */
+@keyframes pulse-green {
+    0%   { color: var(--green); }
+    50%  { color: rgba(49, 207, 127, 0.5); }
+    100% { color: var(--green); }
+}
+
+/* -----------------------------------------------------------------------------
+   Tooltip — schwebende Info-Karte
+   ----------------------------------------------------------------------------- */
+tooltip {
+    background: var(--bg-island);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 6px 10px;
+}
+
+tooltip label {
+    color: var(--text);
+    font-size: 11px;
+}
+
+/* =============================================================================
+   Ende — NSX Midnight Rice / waybar/style.css
+   "Alles auf einen Blick. Kein Rauschen. Nur Signal."
+   ============================================================================= */
