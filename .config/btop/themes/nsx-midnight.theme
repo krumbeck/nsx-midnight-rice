@@ -1,0 +1,95 @@
+# =============================================================================
+# NSX Midnight Rice — btop/themes/nsx-midnight.theme
+# Btop++ Custom Theme
+# Philosophie: Dieselbe DNA wie der Rest des Rice
+#
+# Pfad: ~/.config/btop/themes/nsx-midnight.theme
+#
+# Farbreferenz:
+#   #0B0811  Midnight Background
+#   #7B52AB  Midnight Purple Pearl
+#   #FF00FF  VTEC Magenta
+#   #FF8C00  Tokyo Tower Orange
+#   #E0DEF4  Cockpit Text
+#   #6e6a86  Gedämpft / Inaktiv
+#   #31CF7F  Grün / Erfolg
+#   #FF4444  Rot / Kritisch
+# =============================================================================
+
+# Hintergrundfarbe — wird überschrieben wenn theme_background = False
+theme[main_bg]="#0B0811"
+
+# Haupt-Textfarbe
+theme[main_fg]="#E0DEF4"
+
+# Titel der Boxen — Midnight Purple
+theme[title]="#7B52AB"
+
+# Ausgewählter Eintrag in der Prozessliste
+theme[hi_fg]="#FF00FF"
+
+# Inaktiver Text
+theme[selected_bg]="#191724"
+theme[selected_fg]="#FF00FF"
+
+# Inaktiv
+theme[inactive_fg]="#6e6a86"
+
+# Graph-Farben — von ruhig nach kritisch
+# CPU Graph — Purple zu Magenta (VTEC-Übergang)
+theme[proc_misc]="#7B52AB"
+
+# CPU-Box
+theme[cpu_box]="#7B52AB"
+theme[mem_box]="#7B52AB"
+theme[net_box]="#7B52AB"
+theme[proc_box]="#7B52AB"
+theme[div_line]="#2a2a3d"
+
+# Temperatur-Farben — Kühlwasser-Analogie
+# Kalt → Normal → Warm → Kritisch
+theme[temp_start]="#31CF7F"
+theme[temp_mid]="#FF8C00"
+theme[temp_end]="#FF4444"
+
+# CPU-Auslastung Farben
+theme[cpu_start]="#7B52AB"
+theme[cpu_mid]="#FF00FF"
+theme[cpu_end]="#FF4444"
+
+# Speicher-Farben
+theme[free_start]="#31CF7F"
+theme[free_mid]="#7B52AB"
+theme[free_end]="#FF4444"
+
+theme[cached_start]="#569CD6"
+theme[cached_mid]="#7B52AB"
+theme[cached_end]="#FF00FF"
+
+theme[available_start]="#31CF7F"
+theme[available_mid]="#FF8C00"
+theme[available_end]="#FF4444"
+
+theme[used_start]="#7B52AB"
+theme[used_mid]="#FF00FF"
+theme[used_end]="#FF4444"
+
+# Download — Blau (Daten fließen rein)
+theme[download_start]="#569CD6"
+theme[download_mid]="#7B52AB"
+theme[download_end]="#FF00FF"
+
+# Upload — Orange (Daten fließen raus — Tokyo Tower)
+theme[upload_start]="#FF8C00"
+theme[upload_mid]="#FF00FF"
+theme[upload_end]="#FF4444"
+
+# Prozess-Farben (rotierendes Schema für die Liste)
+theme[process_start]="#7B52AB"
+theme[process_mid]="#FF00FF"
+theme[process_end]="#569CD6"
+
+# =============================================================================
+# Ende — NSX Midnight Rice / nsx-midnight.theme
+# "Alle Instrumente leuchten in Midnight Purple."
+# =============================================================================
