@@ -1,0 +1,253 @@
+/* =============================================================================
+   NSX Midnight Rice — rofi/config.rasi
+   Launcher: App-Starter & Command Palette
+   Philosophie: Blitzschnell, tastaturgesteuert — kein Maus-Overhead
+   Ästhetik: Floating Island, Glass Cockpit — konsistent mit Waybar
+
+   Aufruf via Hyprland:
+     $mod + Space  → App Launcher (drun)
+     $mod + V      → Clipboard (dmenu)
+   ============================================================================= */
+
+
+/* -----------------------------------------------------------------------------
+   KONFIGURATION
+   ----------------------------------------------------------------------------- */
+configuration {
+    modi:                   "drun,run,window";
+    show-icons:             true;
+    icon-theme:             "Papirus-Dark";
+    display-drun:           " Apps";
+    display-run:            " Run";
+    display-window:         " Windows";
+    drun-display-format:    "{name}";
+    window-format:          "{w} · {c} · {t}";
+
+    /* Eingabe */
+    case-sensitive:         false;
+    cycle:                  true;
+
+    /* Kein Rauschen */
+    disable-history:        false;
+    hide-scrollbar:         true;
+
+    /* Anzahl sichtbarer Einträge */
+    lines:                  8;
+    columns:                1;
+}
+
+
+/* =============================================================================
+   DESIGN — NSX Midnight Pearl
+   Floating Island, konsistent mit Waybar
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   Globale Variablen — die DNA
+   ----------------------------------------------------------------------------- */
+* {
+    /* Farben */
+    bg:             #0B0811;
+    bg-island:      rgba(11, 8, 17, 0.92);
+    bg-entry:       rgba(25, 23, 36, 0.80);
+    bg-selected:    rgba(123, 82, 171, 0.35);
+    bg-hover:       rgba(123, 82, 171, 0.20);
+
+    border-col:     rgba(123, 82, 171, 0.60);
+    border-active:  #FF00FF;
+
+    purple:         #7B52AB;
+    magenta:        #FF00FF;
+    orange:         #FF8C00;
+    text:           #E0DEF4;
+    text-dim:       #6e6a86;
+    text-selected:  #E0DEF4;
+
+    /* Typografie */
+    font:           "JetBrainsMono Nerd Font 12";
+
+    /* Reset */
+    background-color:   transparent;
+    text-color:         @text;
+    border:             0;
+    margin:             0;
+    padding:            0;
+    spacing:            0;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Fenster — die Floating Island
+   ----------------------------------------------------------------------------- */
+window {
+    width:              480px;
+    background-color:   @bg-island;
+    border:             1px solid @border-col;
+    border-radius:      14px;
+    padding:            0;
+
+    /* Position: obere Mitte — wie die Waybar */
+    location:           north;
+    anchor:             north;
+    y-offset:           60px;         /* Unter der Waybar */
+
+    /* Blur wird von Hyprland gerendert */
+}
+
+
+/* -----------------------------------------------------------------------------
+   Inneres Layout
+   ----------------------------------------------------------------------------- */
+mainbox {
+    background-color:   transparent;
+    padding:            12px;
+    spacing:            8px;
+    children:           [ inputbar, message, listview ];
+}
+
+
+/* -----------------------------------------------------------------------------
+   Eingabezeile — das Cockpit-Display
+   ----------------------------------------------------------------------------- */
+inputbar {
+    background-color:   @bg-entry;
+    border:             1px solid @border-col;
+    border-radius:      10px;
+    padding:            10px 14px;
+    spacing:            8px;
+    children:           [ prompt, entry ];
+}
+
+prompt {
+    background-color:   transparent;
+    text-color:         @magenta;        /* VTEC-Magenta — aktiv */
+    font:               "JetBrainsMono Nerd Font Bold 12";
+    padding:            0 4px 0 0;
+}
+
+entry {
+    background-color:   transparent;
+    text-color:         @text;
+    placeholder:        "Suchen…";
+    placeholder-color:  @text-dim;
+    cursor:             text;
+    font:               "JetBrainsMono Nerd Font 12";
+}
+
+/* Kein separates Textfeld für Case-Indicator */
+case-indicator {
+    background-color:   transparent;
+    text-color:         @text-dim;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Liste — die Ergebnisse
+   ----------------------------------------------------------------------------- */
+listview {
+    background-color:   transparent;
+    padding:            4px 0 0 0;
+    spacing:            2px;
+    lines:              8;
+    columns:            1;
+    scrollbar:          false;
+    fixed-height:       false;
+}
+
+/* Einzelner Eintrag */
+element {
+    background-color:   transparent;
+    border-radius:      8px;
+    padding:            8px 10px;
+    spacing:            10px;
+    orientation:        horizontal;
+    children:           [ element-icon, element-text ];
+}
+
+element:hover {
+    background-color:   @bg-hover;
+}
+
+element.selected.normal,
+element.selected.urgent,
+element.selected.active {
+    background-color:   @bg-selected;
+    border:             1px solid @border-active;
+    border-radius:      8px;
+}
+
+/* Icon */
+element-icon {
+    background-color:   transparent;
+    size:               20px;
+    cursor:             inherit;
+}
+
+/* Text */
+element-text {
+    background-color:   transparent;
+    text-color:         inherit;
+    cursor:             inherit;
+    vertical-align:     0.5;
+    highlight:          bold @magenta;  /* Treffer in Magenta hervorheben */
+}
+
+element.selected > element-text {
+    text-color:         @text-selected;
+}
+
+element.normal.normal,
+element.normal.urgent {
+    text-color:         @text-dim;
+}
+
+element.normal.active {
+    text-color:         @purple;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Modi-Umschalter (oben oder unten je nach Setup)
+   ----------------------------------------------------------------------------- */
+mode-switcher {
+    background-color:   transparent;
+    spacing:            4px;
+    padding:            4px 0 0 0;
+}
+
+button {
+    background-color:   transparent;
+    text-color:         @text-dim;
+    border-radius:      8px;
+    padding:            4px 12px;
+}
+
+button.selected {
+    background-color:   @bg-selected;
+    text-color:         @magenta;
+    border:             1px solid @border-col;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Nachrichten (Fehler etc.)
+   ----------------------------------------------------------------------------- */
+message {
+    background-color:   transparent;
+    padding:            0 0 4px 0;
+}
+
+textbox {
+    background-color:   rgba(255, 68, 68, 0.15);
+    border:             1px solid rgba(255, 68, 68, 0.4);
+    border-radius:      8px;
+    text-color:         #FF4444;
+    padding:            6px 10px;
+    font:               "JetBrainsMono Nerd Font 11";
+}
+
+
+/* =============================================================================
+   Ende — NSX Midnight Rice / rofi/config.rasi
+   "Schneller als Nachdenken. Präziser als Klicken."
+   ============================================================================= */
