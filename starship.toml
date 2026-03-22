@@ -1,0 +1,202 @@
+# =============================================================================
+# NSX Midnight Rice — starship.toml
+# Prompt: Minimalist, eine Zeile, Git-aware
+#
+# Philosophie: Das HUD des Cockpits — nur relevante Infos, kein Rauschen
+#
+# Idle-Seele:   Purple → dezent, ruhig
+# Action-Seele: Magenta → Git-Repo, Fehler, Root
+#
+# Voraussetzung: JetBrainsMono Nerd Font (für Icons)
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# FORMAT — die Reihenfolge der Instrumente im HUD
+#
+# $directory     → aktueller Pfad       (immer sichtbar)
+# $git_branch    → Git Branch           (nur in Repos)
+# $git_status    → Git Status           (nur in Repos)
+# $cmd_duration  → Ausführungszeit      (bei langen Commands)
+# $line_break    → neue Zeile für Input
+# $character     → der Prompt-Cursor    (Farbe zeigt Status)
+# -----------------------------------------------------------------------------
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+# Rechte Seite — Sprache/Umgebung nur wenn relevant
+right_format = """
+$python\
+$nodejs\
+$rust\
+$docker_context"""
+
+# Keine Leerzeile zwischen Prompts — sauberer Output
+add_newline = true
+
+
+# =============================================================================
+# MODULE
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Verzeichnis — der aktuelle Kurs
+# Kurz halten: maximal 3 Ebenen tief
+# -----------------------------------------------------------------------------
+[directory]
+style = "bold #7B52AB"          # Midnight Purple — ruhige Seele
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = "…/"
+home_symbol = "~"
+read_only = " 󰌾"
+read_only_style = "#FF8C00"     # Orange — Warnung, kein Schreibzugriff
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+
+# -----------------------------------------------------------------------------
+# Git Branch — der eingeschlagene Weg
+# Farbe wechselt zu Magenta — VTEC ist aktiv
+# -----------------------------------------------------------------------------
+[git_branch]
+style = "bold #FF00FF"          # Magenta — Action-Seele
+symbol = " "
+format = "[$symbol$branch]($style) "
+truncation_length = 20
+truncation_symbol = "…"
+always_show_remote = false
+
+
+# -----------------------------------------------------------------------------
+# Git Status — der Zustand des Repos
+# Jedes Symbol hat eine klare Bedeutung
+# -----------------------------------------------------------------------------
+[git_status]
+style = "#FF8C00"               # Orange — Tachometer-Nadel
+format = "([$all_status$ahead_behind]($style) )"
+
+ahead = "⇡${count}"            # lokale Commits noch nicht gepusht
+behind = "⇣${count}"           # Remote ist voraus
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+staged = "[+${count}](bold #31CF7F)"    # Grün — bereit zum Commit
+modified = "[~${count}](#FF8C00)"       # Orange — geändert
+deleted = "[-${count}](bold #FF4444)"   # Rot — gelöscht
+untracked = "[?${count}](#6e6a86)"      # Grau — unbekannte Files
+renamed = "[»${count}](#7B52AB)"        # Purple — umbenannt
+stashed = "[󰆼 ](#7B52AB)"              # Purple — Stash vorhanden
+
+
+# -----------------------------------------------------------------------------
+# Command Duration — wie lange hat der letzte Befehl gedauert?
+# Nur bei Commands über 2 Sekunden sichtbar
+# -----------------------------------------------------------------------------
+[cmd_duration]
+min_time = 2_000
+style = "#6e6a86"
+format = "[󱦟 $duration]($style) "
+show_milliseconds = false
+
+
+# -----------------------------------------------------------------------------
+# Character — der Prompt-Cursor
+# Das ist das letzte Zeichen vor der Eingabe
+#
+# Erfolg:  Purple ❯  — ruhige Seele, alles gut
+# Fehler:  Magenta ❯ — VTEC-Kick, etwas ist schiefgelaufen
+# Root:    Orange  ❯ — Vorsicht, erhöhte Rechte
+# -----------------------------------------------------------------------------
+[character]
+success_symbol = "[❯](bold #7B52AB)"    # Purple — Idle
+error_symbol = "[❯](bold #FF00FF)"      # Magenta — Fehler / Action
+vimcmd_symbol = "[❮](bold #7B52AB)"     # Purple — Vim Normal Mode
+
+
+# =============================================================================
+# SPRACHEN & UMGEBUNGEN (rechte Seite)
+# Nur sichtbar wenn relevant — kein permanentes Rauschen
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+[python]
+style = "#FF8C00"
+symbol = " "
+format = "[$symbol$version( \\($virtualenv\\))]($style) "
+detect_files = ["requirements.txt", "pyproject.toml", ".python-version", "*.py"]
+
+
+# -----------------------------------------------------------------------------
+# Node.js
+# -----------------------------------------------------------------------------
+[nodejs]
+style = "#31CF7F"
+symbol = " "
+format = "[$symbol$version]($style) "
+detect_files = ["package.json", ".nvmrc", "*.js", "*.ts"]
+
+
+# -----------------------------------------------------------------------------
+# Rust — Aluminium-Monocoque Sprache
+# -----------------------------------------------------------------------------
+[rust]
+style = "#FF8C00"
+symbol = " "
+format = "[$symbol$version]($style) "
+detect_files = ["Cargo.toml", "*.rs"]
+
+
+# -----------------------------------------------------------------------------
+# Docker
+# -----------------------------------------------------------------------------
+[docker_context]
+style = "#569CD6"
+symbol = " "
+format = "[$symbol$context]($style) "
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+
+
+# =============================================================================
+# DEAKTIVIERTE MODULE — kein Rauschen im Cockpit
+# Alles was nicht gebraucht wird ist ausgeschaltet
+# =============================================================================
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[azure]
+disabled = true
+
+[battery]
+disabled = true          # Waybar übernimmt das
+
+[time]
+disabled = true          # Waybar übernimmt das
+
+[username]
+disabled = true          # Offensichtlich in der eigenen Shell
+
+[hostname]
+disabled = true          # Offensichtlich auf dem eigenen Rechner
+
+[package]
+disabled = true          # Zu viel Rauschen
+
+
+# =============================================================================
+# Ende — NSX Midnight Rice / starship.toml
+#
+# Idle:   ~/Projects/nsx-midnight-rice ❯
+# In Git: ~/Projects/nsx-midnight-rice  main +2 ~1 ❯
+# Fehler: ~/Projects/nsx-midnight-rice ❯  (in Magenta)
+# =============================================================================
