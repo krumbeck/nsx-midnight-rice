@@ -1,18 +1,9 @@
 /* =============================================================================
-   NSX Midnight Rice — rofi/config.rasi
-   Launcher: App-Starter & Command Palette
-   Philosophie: Blitzschnell, tastaturgesteuert — kein Maus-Overhead
-   Ästhetik: Floating Island, Glass Cockpit — konsistent mit Waybar
-
-   Aufruf via Hyprland:
-     $mod + Space  → App Launcher (drun)
-     $mod + V      → Clipboard (dmenu)
+   NSX Rice — rofi/config.rasi
+   Palette: Sanzo Wada — 7月の配色 / Tech Geisha
+   Launcher: App-Starter, konsistent mit Waybar Islands
    ============================================================================= */
 
-
-/* -----------------------------------------------------------------------------
-   KONFIGURATION
-   ----------------------------------------------------------------------------- */
 configuration {
     modi:                   "drun,run,window";
     show-icons:             true;
@@ -22,51 +13,44 @@ configuration {
     display-window:         " Windows";
     drun-display-format:    "{name}";
     window-format:          "{w} · {c} · {t}";
-
-    /* Eingabe */
     case-sensitive:         false;
     cycle:                  true;
-
-    /* Kein Rauschen */
     disable-history:        false;
     hide-scrollbar:         true;
-
-    /* Anzahl sichtbarer Einträge */
     lines:                  8;
     columns:                1;
 }
 
-
 /* =============================================================================
-   DESIGN — NSX Midnight Pearl
-   Floating Island, konsistent mit Waybar
+   DESIGN — 7月の配色
    ============================================================================= */
 
-/* -----------------------------------------------------------------------------
-   Globale Variablen — die DNA
-   ----------------------------------------------------------------------------- */
 * {
-    /* Farben */
-    bg:             #0B0811;
-    bg-island:      rgba(11, 8, 17, 0.92);
-    bg-entry:       rgba(25, 23, 36, 0.80);
-    bg-selected:    rgba(123, 82, 171, 0.35);
-    bg-hover:       rgba(123, 82, 171, 0.20);
+    /* 花色 — Violet Blue */
+    bg:             #1e1f3d;
+    bg-island:      rgba(30, 31, 61, 0.93);
+    /* 二藍 — Dark Soft Violet */
+    bg-entry:       rgba(45, 45, 94, 0.85);
+    bg-selected:    rgba(92, 61, 158, 0.35);
+    bg-hover:       rgba(92, 61, 158, 0.20);
 
-    border-col:     rgba(123, 82, 171, 0.60);
-    border-active:  #FF00FF;
+    /* 桔梗色 — Blue Violet */
+    border-col:     rgba(92, 61, 158, 0.60);
+    /* 飴色 — aktive Border */
+    border-active:  #c97a2a;
 
-    purple:         #7B52AB;
-    magenta:        #FF00FF;
-    orange:         #FF8C00;
-    text:           #E0DEF4;
+    /* Akzente */
+    purple:         #5c3d9e;    /* 桔梗色 */
+    lilac:          #b57fb8;    /* 鳩羽紫 */
+    amber:          #c97a2a;    /* 飴色 */
+
+    /* Text */
+    text:           #c4b8bc;    /* 薄色 */
     text-dim:       #6e6a86;
-    text-selected:  #E0DEF4;
+    text-selected:  #c4b8bc;
 
-    /* Typografie */
     font:           "JetBrainsMono Nerd Font 12";
 
-    /* Reset */
     background-color:   transparent;
     text-color:         @text;
     border:             0;
@@ -75,9 +59,8 @@ configuration {
     spacing:            0;
 }
 
-
 /* -----------------------------------------------------------------------------
-   Fenster — die Floating Island
+   Fenster — Floating Island, unter der Waybar
    ----------------------------------------------------------------------------- */
 window {
     width:              480px;
@@ -85,19 +68,11 @@ window {
     border:             1px solid @border-col;
     border-radius:      14px;
     padding:            0;
-
-    /* Position: obere Mitte — wie die Waybar */
     location:           north;
     anchor:             north;
-    y-offset:           60px;         /* Unter der Waybar */
-
-    /* Blur wird von Hyprland gerendert */
+    y-offset:           60px;
 }
 
-
-/* -----------------------------------------------------------------------------
-   Inneres Layout
-   ----------------------------------------------------------------------------- */
 mainbox {
     background-color:   transparent;
     padding:            12px;
@@ -105,9 +80,8 @@ mainbox {
     children:           [ inputbar, message, listview ];
 }
 
-
 /* -----------------------------------------------------------------------------
-   Eingabezeile — das Cockpit-Display
+   Eingabezeile
    ----------------------------------------------------------------------------- */
 inputbar {
     background-color:   @bg-entry;
@@ -118,9 +92,10 @@ inputbar {
     children:           [ prompt, entry ];
 }
 
+/* 飴色 Prompt — warm, präzise */
 prompt {
     background-color:   transparent;
-    text-color:         @magenta;        /* VTEC-Magenta — aktiv */
+    text-color:         @amber;
     font:               "JetBrainsMono Nerd Font Bold 12";
     padding:            0 4px 0 0;
 }
@@ -134,15 +109,13 @@ entry {
     font:               "JetBrainsMono Nerd Font 12";
 }
 
-/* Kein separates Textfeld für Case-Indicator */
 case-indicator {
     background-color:   transparent;
     text-color:         @text-dim;
 }
 
-
 /* -----------------------------------------------------------------------------
-   Liste — die Ergebnisse
+   Ergebnisliste
    ----------------------------------------------------------------------------- */
 listview {
     background-color:   transparent;
@@ -154,7 +127,6 @@ listview {
     fixed-height:       false;
 }
 
-/* Einzelner Eintrag */
 element {
     background-color:   transparent;
     border-radius:      8px;
@@ -168,6 +140,7 @@ element:hover {
     background-color:   @bg-hover;
 }
 
+/* 飴色 Border beim aktiven Element */
 element.selected.normal,
 element.selected.urgent,
 element.selected.active {
@@ -176,20 +149,19 @@ element.selected.active {
     border-radius:      8px;
 }
 
-/* Icon */
 element-icon {
     background-color:   transparent;
     size:               20px;
     cursor:             inherit;
 }
 
-/* Text */
 element-text {
     background-color:   transparent;
     text-color:         inherit;
     cursor:             inherit;
     vertical-align:     0.5;
-    highlight:          bold @magenta;  /* Treffer in Magenta hervorheben */
+    /* 飴色 Treffer-Highlight */
+    highlight:          bold #c97a2a;
 }
 
 element.selected > element-text {
@@ -205,9 +177,8 @@ element.normal.active {
     text-color:         @purple;
 }
 
-
 /* -----------------------------------------------------------------------------
-   Modi-Umschalter (oben oder unten je nach Setup)
+   Modi-Umschalter
    ----------------------------------------------------------------------------- */
 mode-switcher {
     background-color:   transparent;
@@ -224,13 +195,13 @@ button {
 
 button.selected {
     background-color:   @bg-selected;
-    text-color:         @magenta;
+    /* 飴色 aktiver Modus */
+    text-color:         @amber;
     border:             1px solid @border-col;
 }
 
-
 /* -----------------------------------------------------------------------------
-   Nachrichten (Fehler etc.)
+   Fehlermeldungen
    ----------------------------------------------------------------------------- */
 message {
     background-color:   transparent;
@@ -238,16 +209,16 @@ message {
 }
 
 textbox {
-    background-color:   rgba(255, 68, 68, 0.15);
-    border:             1px solid rgba(255, 68, 68, 0.4);
+    background-color:   rgba(196, 92, 92, 0.15);
+    border:             1px solid rgba(196, 92, 92, 0.4);
     border-radius:      8px;
-    text-color:         #FF4444;
+    text-color:         #c45c5c;
     padding:            6px 10px;
     font:               "JetBrainsMono Nerd Font 11";
 }
 
-
 /* =============================================================================
-   Ende — NSX Midnight Rice / rofi/config.rasi
-   "Schneller als Nachdenken. Präziser als Klicken."
+   Ende — NSX Rice / rofi/config.rasi — 7月の配色
+   „Du öffnetest das Terminal und dachtest kurz daran, wie viele Entscheidungen
+    in dieser Konfigurationsdatei steckten, die niemand außer dir je sehen würde."
    ============================================================================= */

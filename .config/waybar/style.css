@@ -1,25 +1,25 @@
 /* =============================================================================
-   NSX Midnight Rice — waybar/style.css
-   Ästhetik: Floating Islands — drei schwebende Segmente über Tokyo
-   Philosophie: Instrument Cluster des NSX — klar, präzise, keine Ablenkung
+   NSX Rice — waybar/style.css
+   Palette: Sanzo Wada — 7月の配色 / Tech Geisha
    ============================================================================= */
 
-/* -----------------------------------------------------------------------------
-   CSS Variablen — die DNA des Rice
-   Einmal ändern, überall wirksam
-   ----------------------------------------------------------------------------- */
 * {
-    --bg:           #0B0811;        /* Midnight — der Lack im Schatten         */
-    --bg-island:    rgba(11, 8, 17, 0.88);  /* Glass Cockpit Transparenz       */
-    --border:       rgba(123, 82, 171, 0.6); /* Midnight Purple — gedämpft     */
-    --purple:       #7B52AB;        /* Midnight Purple Pearl                   */
-    --magenta:      #FF00FF;        /* VTEC-Kick / Neon-Reflexion              */
-    --orange:       #FF8C00;        /* Tokyo Tower / Tachometer-Nadel          */
-    --text:         #E0DEF4;        /* Cockpit-Display                         */
-    --text-dim:     #6e6a86;        /* Inaktiv / gedämpft                      */
-    --red:          #FF4444;        /* Fehler / Critical                       */
-    --green:        #31CF7F;        /* Erfolg / Good                           */
-    --yellow:       #FF8C00;        /* Warning                                 */
+    --bg:           #1e1f3d;                    /* 花色 — Violet Blue        */
+    --bg-island:    rgba(30, 31, 61, 0.90);     /* Glass Cockpit             */
+    --bg-entry:     rgba(45, 45, 94, 0.85);     /* 二藍 — Dark Soft Violet   */
+    --bg-hover:     rgba(92, 61, 158, 0.25);
+    --bg-selected:  rgba(92, 61, 158, 0.35);
+    --border:       rgba(92, 61, 158, 0.60);    /* 桔梗色 gedämpft           */
+    --border-active: #c97a2a;                   /* 飴色 — aktive Border      */
+    --purple:       #5c3d9e;                    /* 桔梗色 — Blue Violet      */
+    --lilac:        #b57fb8;                    /* 鳩羽紫 — Lilac            */
+    --amber:        #c97a2a;                    /* 飴色 — Orange Rufous      */
+    --amber-bright: #e08a35;
+    --text:         #c4b8bc;                    /* 薄色 — Grayish Lavender   */
+    --text-dim:     #6e6a86;
+    --red:          #c45c5c;
+    --green:        #5c9e7a;
+    --yellow:       #c97a2a;
 
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 12px;
@@ -31,21 +31,15 @@
     padding: 0;
 }
 
-/* -----------------------------------------------------------------------------
-   Die Bar selbst — transparent, nur Islands haben Hintergrund
-   ----------------------------------------------------------------------------- */
 window#waybar {
     background: transparent;
     color: var(--text);
 }
 
-window#waybar.hidden {
-    opacity: 0.2;
-}
+window#waybar.hidden { opacity: 0.2; }
 
 /* -----------------------------------------------------------------------------
-   Island-Basis — das schwebende Segment
-   Alle drei Islands (links, mitte, rechts) bekommen diesen Look
+   Floating Islands
    ----------------------------------------------------------------------------- */
 .modules-left,
 .modules-center,
@@ -55,15 +49,12 @@ window#waybar.hidden {
     border-radius: 10px;
     padding: 0 8px;
     margin: 0;
-
-    /* Blur-Effekt wird von Hyprland gerendert */
-    /* Der CSS backdrop-filter ist ein Fallback */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
 
 /* -----------------------------------------------------------------------------
-   Allgemeine Modul-Basis
+   Basis Module
    ----------------------------------------------------------------------------- */
 #workspaces,
 #window,
@@ -80,10 +71,8 @@ window#waybar.hidden {
 }
 
 /* -----------------------------------------------------------------------------
-   ISLAND LINKS — Workspaces & Window
+   Workspaces — Kanji Nummern in 飴色
    ----------------------------------------------------------------------------- */
-
-/* Workspace Buttons */
 #workspaces button {
     padding: 2px 8px;
     color: var(--text-dim);
@@ -95,35 +84,37 @@ window#waybar.hidden {
 }
 
 #workspaces button:hover {
-    background: rgba(123, 82, 171, 0.3);
+    background: rgba(92, 61, 158, 0.25);
     color: var(--text);
 }
 
-#workspaces button.active {
-    color: var(--magenta);
-    background: rgba(255, 0, 255, 0.15);
-    border-bottom: 2px solid var(--magenta);
+/* Gemini-Fix: beide Klassen abdecken */
+#workspaces button.active,
+#workspaces button.focused {
+    color: var(--amber);
+    background: rgba(201, 122, 42, 0.15);
+    border-bottom: 2px solid var(--amber);
 }
 
 #workspaces button.urgent {
-    color: var(--orange);
-    background: rgba(255, 140, 0, 0.2);
-    animation: pulse-orange 1s infinite;
+    color: var(--red);
+    background: rgba(196, 92, 92, 0.2);
+    animation: pulse-red 1s infinite;
 }
 
-/* Aktives Fenster */
+/* -----------------------------------------------------------------------------
+   Aktives Fenster
+   ----------------------------------------------------------------------------- */
 #window {
     color: var(--text-dim);
     font-style: italic;
     padding-left: 4px;
 }
 
-#window.empty {
-    opacity: 0;
-}
+#window.empty { opacity: 0; }
 
 /* -----------------------------------------------------------------------------
-   ISLAND MITTE — Uhrzeit (das Tachometer-Zentrum)
+   Uhrzeit — Mitte
    ----------------------------------------------------------------------------- */
 #clock {
     color: var(--text);
@@ -133,151 +124,73 @@ window#waybar.hidden {
     padding: 4px 16px;
 }
 
-/* Beim Hover: Datum anzeigen — Alt-Format */
-#clock:hover {
-    color: var(--purple);
-}
+#clock:hover { color: var(--lilac); }
 
 /* -----------------------------------------------------------------------------
-   ISLAND RECHTS — Instrument Cluster
+   Instrument Cluster — Rechts
    ----------------------------------------------------------------------------- */
 
-/* CPU — Drehzahlmesser */
-#cpu {
-    color: var(--text);
-}
+#cpu { color: var(--text); }
+#cpu.warning { color: var(--yellow); }
+#cpu.critical { color: var(--red); animation: pulse-red 0.5s infinite; }
 
-#cpu.warning {
-    color: var(--yellow);
-}
+#memory { color: var(--text); }
+#memory.warning { color: var(--yellow); }
+#memory.critical { color: var(--red); }
 
-#cpu.critical {
-    color: var(--red);
-    animation: pulse-red 0.5s infinite;
-}
+#temperature { color: var(--text); }
+#temperature.critical { color: var(--red); animation: pulse-red 0.5s infinite; }
 
-/* RAM */
-#memory {
-    color: var(--text);
-}
+#network { color: var(--text); }
+#network.disconnected { color: var(--text-dim); }
 
-#memory.warning {
-    color: var(--yellow);
-}
+#pulseaudio { color: var(--text); }
+#pulseaudio.muted { color: var(--text-dim); }
+#pulseaudio.bluetooth { color: var(--purple); }
 
-#memory.critical {
-    color: var(--red);
-}
-
-/* Temperatur */
-#temperature {
-    color: var(--text);
-}
-
-#temperature.critical {
-    color: var(--red);
-    animation: pulse-red 0.5s infinite;
-}
-
-/* Netzwerk */
-#network {
-    color: var(--text);
-}
-
-#network.disconnected {
-    color: var(--text-dim);
-}
-
-/* Audio */
-#pulseaudio {
-    color: var(--text);
-}
-
-#pulseaudio.muted {
-    color: var(--text-dim);
-}
-
-#pulseaudio.bluetooth {
-    color: var(--purple);
-}
-
-/* Akku — Reichweite */
-#battery {
-    color: var(--green);
-}
-
-#battery.good {
-    color: var(--green);
-}
-
-#battery.warning {
-    color: var(--yellow);
-}
-
-#battery.critical {
-    color: var(--red);
-}
-
+#battery { color: var(--green); }
+#battery.good { color: var(--green); }
+#battery.warning { color: var(--yellow); }
+#battery.critical { color: var(--red); }
 #battery.charging,
-#battery.plugged {
-    color: var(--green);
-    animation: pulse-green 2s infinite;
-}
+#battery.plugged { color: var(--green); animation: pulse-green 2s infinite; }
 
-/* Tray */
-#tray {
-    padding: 4px 6px;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
+#tray { padding: 4px 6px; }
+#tray > .passive { -gtk-icon-effect: dim; }
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: rgba(255, 140, 0, 0.2);
+    background-color: rgba(201, 122, 42, 0.2);
     border-radius: 6px;
 }
 
 /* -----------------------------------------------------------------------------
-   Trennlinien zwischen Modulen in einer Island
+   Trennlinien zwischen Modulen
    ----------------------------------------------------------------------------- */
 #cpu,
 #memory,
 #temperature,
 #network {
-    border-right: 1px solid rgba(123, 82, 171, 0.3);
+    border-right: 1px solid rgba(92, 61, 158, 0.30);
     margin-right: 2px;
 }
 
 /* -----------------------------------------------------------------------------
-   ANIMATIONEN
-   VTEC-Prinzip: subtil im Idle, sichtbar im kritischen Zustand
+   Animationen — 飴色 Tachometer-Nadel Prinzip
    ----------------------------------------------------------------------------- */
-
-/* Tachometer-Nadel — Orange pulsiert bei Warnung */
-@keyframes pulse-orange {
-    0%   { color: var(--orange); }
-    50%  { color: rgba(255, 140, 0, 0.4); }
-    100% { color: var(--orange); }
-}
-
-/* Kritisch — Rot pulsiert */
 @keyframes pulse-red {
     0%   { color: var(--red); }
-    50%  { color: rgba(255, 68, 68, 0.4); }
+    50%  { color: rgba(196, 92, 92, 0.4); }
     100% { color: var(--red); }
 }
 
-/* Laden — Grün atmet */
 @keyframes pulse-green {
     0%   { color: var(--green); }
-    50%  { color: rgba(49, 207, 127, 0.5); }
+    50%  { color: rgba(92, 158, 122, 0.5); }
     100% { color: var(--green); }
 }
 
 /* -----------------------------------------------------------------------------
-   Tooltip — schwebende Info-Karte
+   Tooltip
    ----------------------------------------------------------------------------- */
 tooltip {
     background: var(--bg-island);
@@ -293,6 +206,5 @@ tooltip label {
 }
 
 /* =============================================================================
-   Ende — NSX Midnight Rice / waybar/style.css
-   "Alles auf einen Blick. Kein Rauschen. Nur Signal."
+   Ende — NSX Rice / waybar/style.css — 7月の配色
    ============================================================================= */

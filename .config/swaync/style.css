@@ -1,30 +1,22 @@
 /* =============================================================================
-   NSX Midnight Rice — swaync/style.css
-   Notifications: HUD-Style Toast & Control Center
-   Philosophie: Kurzes Einblenden wie ein Cockpit-Alert — dann weg
-   Ästhetik: Glass Cockpit, konsistent mit Waybar & Rofi
+   NSX Rice — swaync/style.css
+   Palette: Sanzo Wada — 7月の配色 / Tech Geisha
    ============================================================================= */
 
-/* -----------------------------------------------------------------------------
-   Globale Variablen — dieselbe DNA wie der Rest des Rice
-   ----------------------------------------------------------------------------- */
 * {
-    --bg:           #0B0811;
-    --bg-island:    rgba(11, 8, 17, 0.92);
-    --bg-entry:     rgba(25, 23, 36, 0.85);
-    --bg-hover:     rgba(123, 82, 171, 0.20);
-    --bg-selected:  rgba(123, 82, 171, 0.30);
-
-    --border:       rgba(123, 82, 171, 0.60);
-    --border-urgent: rgba(255, 68, 68, 0.80);
+    --bg:           #1e1f3d;        /* 花色 */
+    --bg-island:    rgba(30, 31, 61, 0.92);
+    --bg-entry:     rgba(45, 45, 94, 0.85);  /* 二藍 */
+    --bg-hover:     rgba(92, 61, 158, 0.20);
+    --border:       rgba(92, 61, 158, 0.60); /* 桔梗色 */
+    --border-urgent: rgba(196, 92, 92, 0.80);
     --border-low:   rgba(110, 106, 134, 0.40);
-
-    --purple:       #7B52AB;
-    --magenta:      #FF00FF;
-    --orange:       #FF8C00;
-    --red:          #FF4444;
-    --green:        #31CF7F;
-    --text:         #E0DEF4;
+    --purple:       #5c3d9e;    /* 桔梗色 */
+    --lilac:        #b57fb8;    /* 鳩羽紫 */
+    --amber:        #c97a2a;    /* 飴色 */
+    --red:          #c45c5c;
+    --green:        #5c9e7a;
+    --text:         #c4b8bc;    /* 薄色 */
     --text-dim:     #6e6a86;
 
     font-family:    "JetBrainsMono Nerd Font", monospace;
@@ -34,304 +26,170 @@
     box-sizing:     border-box;
 }
 
-/* =============================================================================
-   NOTIFICATION WINDOW — der Toast
-   Erscheint oben rechts, schwebt kurz, verschwindet
-   ============================================================================= */
-
 .notification-row {
-    outline:        none;
-    margin:         4px 0;
-    padding:        0 12px;
+    outline: none;
+    margin: 4px 0;
+    padding: 0 12px;
 }
 
-.notification-row:focus,
-.notification-row:hover {
-    background:     transparent;
-}
-
-/* Der eigentliche Toast — Floating Island */
 .notification {
     background:     var(--bg-island);
     border:         1px solid var(--border);
     border-radius:  12px;
     padding:        12px 14px;
     margin:         0;
-
-    box-shadow:     0 4px 24px rgba(123, 82, 171, 0.25),
-                    0 2px 8px rgba(0, 0, 0, 0.60);
-
+    box-shadow:     0 4px 24px rgba(92, 61, 158, 0.20),
+                    0 2px 8px rgba(0, 0, 0, 0.50);
     transition:     all 200ms ease;
 }
 
-/* Urgency Varianten */
-.notification.low {
-    border-color:   var(--border-low);
-    box-shadow:     0 2px 12px rgba(0, 0, 0, 0.40);
-}
-
-.notification.normal {
-    border-color:   var(--border);
-}
-
+.notification.low { border-color: var(--border-low); }
+.notification.normal { border-color: var(--border); }
 .notification.critical {
-    border-color:   var(--border-urgent);
-    box-shadow:     0 4px 24px rgba(255, 68, 68, 0.30),
-                    0 2px 8px rgba(0, 0, 0, 0.60);
-    animation:      pulse-critical 1s infinite;
+    border-color: var(--border-urgent);
+    animation: pulse-critical 1s infinite;
 }
 
 @keyframes pulse-critical {
-    0%   { border-color: rgba(255, 68, 68, 0.80); }
-    50%  { border-color: rgba(255, 68, 68, 0.30); }
-    100% { border-color: rgba(255, 68, 68, 0.80); }
-}
-
-/* -----------------------------------------------------------------------------
-   Toast Inhalt
-   ----------------------------------------------------------------------------- */
-
-/* Header — App Name + Icon */
-.notification-header {
-    padding:        0 0 6px 0;
-}
-
-.app-icon {
-    -gtk-icon-size: 20px;
-    margin-right:   8px;
-    opacity:        0.9;
+    0%   { border-color: rgba(196, 92, 92, 0.80); }
+    50%  { border-color: rgba(196, 92, 92, 0.30); }
+    100% { border-color: rgba(196, 92, 92, 0.80); }
 }
 
 .app-name {
     color:          var(--purple);
     font-weight:    700;
     font-size:      11px;
-    letter-spacing: 0.3px;
     text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
-.app-name.critical {
-    color:          var(--red);
-}
+.app-name.critical { color: var(--red); }
+.time { color: var(--text-dim); font-size: 10px; margin-left: auto; }
 
-.time {
-    color:          var(--text-dim);
-    font-size:      10px;
-    margin-left:    auto;
-}
-
-/* Trennlinie */
-.notification-header + * {
-    border-top:     1px solid rgba(123, 82, 171, 0.20);
-    padding-top:    8px;
-}
-
-/* Titel */
 .summary {
-    color:          var(--text);
-    font-weight:    600;
-    font-size:      12px;
-    padding:        4px 0 2px 0;
+    color:      var(--text);
+    font-weight: 600;
+    font-size:  12px;
+    padding:    4px 0 2px 0;
 }
 
-.summary.critical {
-    color:          var(--red);
-}
+.body { color: var(--text-dim); font-size: 11px; line-height: 1.5; }
 
-/* Body */
-.body {
-    color:          var(--text-dim);
-    font-size:      11px;
-    line-height:    1.5;
-}
-
-/* Bild */
-.image {
-    border-radius:  8px;
-    margin:         6px 0 0 0;
-}
-
-/* -----------------------------------------------------------------------------
-   Aktions-Buttons
-   ----------------------------------------------------------------------------- */
 .notification-action {
-    background:     var(--bg-entry);
-    border:         1px solid var(--border);
-    border-radius:  8px;
-    color:          var(--text-dim);
-    padding:        4px 12px;
-    margin:         6px 4px 0 0;
-    font-size:      11px;
-    transition:     all 150ms ease;
+    background: var(--bg-entry);
+    border:     1px solid var(--border);
+    border-radius: 8px;
+    color:      var(--text-dim);
+    padding:    4px 12px;
+    margin:     6px 4px 0 0;
+    font-size:  11px;
+    transition: all 150ms ease;
 }
 
 .notification-action:hover {
-    background:     var(--bg-hover);
-    color:          var(--text);
-    border-color:   var(--purple);
+    background: var(--bg-hover);
+    color:      var(--text);
+    border-color: var(--purple);
 }
 
+/* 飴色 für primäre Aktion */
 .notification-action:first-child {
-    color:          var(--magenta);
-    border-color:   rgba(255, 0, 255, 0.40);
+    color:          var(--amber);
+    border-color:   rgba(201, 122, 42, 0.40);
 }
 
 .notification-action:first-child:hover {
-    background:     rgba(255, 0, 255, 0.15);
-    border-color:   var(--magenta);
+    background: rgba(201, 122, 42, 0.15);
+    border-color: var(--amber);
 }
 
-/* Schließen-Button */
 .close-button {
-    background:     transparent;
-    border:         none;
-    border-radius:  6px;
-    color:          var(--text-dim);
-    padding:        2px 6px;
-    font-size:      14px;
-    transition:     all 150ms ease;
-    margin-left:    auto;
+    background: transparent;
+    border:     none;
+    border-radius: 6px;
+    color:      var(--text-dim);
+    padding:    2px 6px;
+    transition: all 150ms ease;
 }
 
 .close-button:hover {
-    background:     rgba(255, 68, 68, 0.20);
-    color:          var(--red);
+    background: rgba(196, 92, 92, 0.20);
+    color:      var(--red);
 }
 
-
-/* =============================================================================
-   CONTROL CENTER — das Notification Panel
-   Öffnet sich mit $mod + N von rechts
-   ============================================================================= */
-
+/* Control Center */
 .control-center {
-    background:     var(--bg-island);
-    border:         1px solid var(--border);
-    border-radius:  14px 0 0 14px;     /* Links abgerundet, rechts am Bildschirmrand */
-    padding:        0;
-    box-shadow:     -4px 0 24px rgba(0, 0, 0, 0.50);
+    background: var(--bg-island);
+    border:     1px solid var(--border);
+    border-radius: 14px 0 0 14px;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.50);
 }
 
-/* -----------------------------------------------------------------------------
-   Header des Control Center
-   ----------------------------------------------------------------------------- */
-.widget-title {
-    padding:        14px 16px 10px 16px;
-    border-bottom:  1px solid rgba(123, 82, 171, 0.20);
-}
+.widget-title { padding: 14px 16px 10px 16px; border-bottom: 1px solid rgba(92, 61, 158, 0.20); }
+.widget-title > label { color: var(--text); font-weight: 700; font-size: 13px; }
 
-.widget-title > label {
-    color:          var(--text);
-    font-weight:    700;
-    font-size:      13px;
-    letter-spacing: 0.3px;
-}
-
-/* Alle löschen Button */
 .widget-title > button {
-    background:     transparent;
-    border:         1px solid var(--border);
-    border-radius:  8px;
-    color:          var(--text-dim);
-    padding:        4px 10px;
-    font-size:      11px;
-    transition:     all 150ms ease;
-    margin-left:    auto;
+    background: transparent;
+    border:     1px solid var(--border);
+    border-radius: 8px;
+    color:      var(--text-dim);
+    padding:    4px 10px;
+    font-size:  11px;
+    transition: all 150ms ease;
+    margin-left: auto;
 }
 
 .widget-title > button:hover {
-    background:     rgba(255, 68, 68, 0.15);
-    border-color:   var(--red);
-    color:          var(--red);
+    background: rgba(196, 92, 92, 0.15);
+    border-color: var(--red);
+    color:      var(--red);
 }
 
-/* -----------------------------------------------------------------------------
-   Do Not Disturb Toggle
-   ----------------------------------------------------------------------------- */
-.widget-dnd {
-    padding:        10px 16px;
-    border-bottom:  1px solid rgba(123, 82, 171, 0.20);
-}
-
-.widget-dnd > label {
-    color:          var(--text-dim);
-    font-size:      12px;
-}
+.widget-dnd { padding: 10px 16px; border-bottom: 1px solid rgba(92, 61, 158, 0.20); }
+.widget-dnd > label { color: var(--text-dim); font-size: 12px; }
 
 .widget-dnd > switch {
-    background:     var(--bg-entry);
-    border:         1px solid var(--border);
-    border-radius:  12px;
-    min-height:     22px;
-    min-width:      44px;
-    margin-left:    auto;
-    transition:     all 200ms ease;
+    background: var(--bg-entry);
+    border:     1px solid var(--border);
+    border-radius: 12px;
+    min-height: 22px;
+    min-width:  44px;
+    margin-left: auto;
 }
 
 .widget-dnd > switch:checked {
-    background:     rgba(123, 82, 171, 0.40);
-    border-color:   var(--purple);
+    background: rgba(92, 61, 158, 0.40);
+    border-color: var(--purple);
 }
 
 .widget-dnd > switch slider {
-    background:     var(--text-dim);
-    border-radius:  50%;
-    min-height:     16px;
-    min-width:      16px;
-    margin:         2px;
-    transition:     all 200ms ease;
+    background: var(--text-dim);
+    border-radius: 50%;
+    min-height: 16px;
+    min-width:  16px;
+    margin:     2px;
 }
 
-.widget-dnd > switch:checked slider {
-    background:     var(--magenta);
-}
-
-/* -----------------------------------------------------------------------------
-   Notifications Liste im Control Center
-   ----------------------------------------------------------------------------- */
-.notification-row {
-    padding:        0 8px;
-    margin:         3px 0;
-}
+/* 飴色 Toggle wenn aktiv */
+.widget-dnd > switch:checked slider { background: var(--amber); }
 
 .control-center .notification {
-    background:     var(--bg-entry);
-    border-radius:  10px;
-    box-shadow:     none;
-    padding:        10px 12px;
+    background: var(--bg-entry);
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 10px 12px;
 }
 
 .control-center .notification:hover {
-    background:     var(--bg-hover);
-    border-color:   var(--purple);
+    background: var(--bg-hover);
+    border-color: var(--purple);
 }
 
-/* Leerer Zustand */
-.control-center-placeholder {
-    color:          var(--text-dim);
-    font-size:      13px;
-    padding:        32px;
-    opacity:        0.6;
-}
-
-/* Scrollbar */
-scrollbar {
-    background:     transparent;
-    border-radius:  4px;
-    min-width:      4px;
-}
-
-scrollbar thumb {
-    background:     rgba(123, 82, 171, 0.40);
-    border-radius:  4px;
-    min-height:     40px;
-}
-
-scrollbar thumb:hover {
-    background:     var(--purple);
-}
+scrollbar { background: transparent; border-radius: 4px; min-width: 4px; }
+scrollbar thumb { background: rgba(92, 61, 158, 0.40); border-radius: 4px; min-height: 40px; }
+scrollbar thumb:hover { background: var(--purple); }
 
 /* =============================================================================
-   Ende — NSX Midnight Rice / swaync/style.css
-   "Kein Rauschen. Nur Signal. Kurz sichtbar — dann weg."
+   Ende — NSX Rice / swaync/style.css — 7月の配色
    ============================================================================= */

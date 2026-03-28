@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # =============================================================================
-# NSX Midnight Rice — install.sh
-# Installations-Script für Arch Linux
+# NSX Rice — install.sh
+# Palette: Sanzo Wada — 7月の配色 / Tech Geisha
 #
 # Verwendung:
 #   git clone https://github.com/krumbeck/nsx-midnight-rice.git
@@ -14,20 +14,21 @@
 #   2. Config-Verzeichnisse anlegen
 #   3. Dotfiles symlinken (nicht kopieren — Änderungen wirken sofort)
 #   4. Zsh als Standard-Shell setzen
-#   5. Starship initialisieren
+#   5. Zinit installieren
 #
-# Philosophie: Aluminium-Monocoque — kein Bloat, jeder Schritt ist bewusst
+# Philosophie: kein Bloat, jeder Schritt ist bewusst
 # =============================================================================
 
-set -euo pipefail  # Bei Fehler sofort abbrechen
+set -euo pipefail
 
 # -----------------------------------------------------------------------------
-# FARBEN — auch das Script nutzt die NSX-Palette
+# TERMINAL-FARBEN — 7月の配色 Annäherung
+# 花色 → Blau, 桔梗色 → Violett, 飴色 → Orange/Gelb
 # -----------------------------------------------------------------------------
 
-PURPLE='\033[0;35m'
-MAGENTA='\033[1;35m'
-ORANGE='\033[0;33m'
+VIOLET='\033[0;34m'     # Annäherung 花色 / 桔梗色
+LILAC='\033[1;35m'      # Annäherung 鳩羽紫
+AMBER='\033[0;33m'      # Annäherung 飴色
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 DIM='\033[0;90m'
@@ -38,48 +39,41 @@ RESET='\033[0m'
 # HILFSFUNKTIONEN
 # -----------------------------------------------------------------------------
 
-# Header ausgeben
 header() {
     echo ""
-    echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
-    echo -e "${MAGENTA}  NSX Midnight Rice — Installer${RESET}"
-    echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    echo -e "${VIOLET}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    echo -e "${LILAC}  NSX Rice — Installer${RESET}"
+    echo -e "${DIM}  Sanzo Wada · 7月の配色 · Tech Geisha${RESET}"
+    echo -e "${VIOLET}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
     echo ""
 }
 
-# Schritt ausgeben
 step() {
-    echo -e "${PURPLE}❯${RESET} ${BOLD}$1${RESET}"
+    echo -e "${VIOLET}❯${RESET} ${BOLD}$1${RESET}"
 }
 
-# Erfolg
 ok() {
     echo -e "  ${GREEN}✓${RESET} $1"
 }
 
-# Info
 info() {
     echo -e "  ${DIM}→ $1${RESET}"
 }
 
-# Warnung
 warn() {
-    echo -e "  ${ORANGE}⚠${RESET} $1"
+    echo -e "  ${AMBER}⚠${RESET} $1"
 }
 
-# Fehler
 error() {
     echo -e "  ${RED}✗${RESET} $1"
     exit 1
 }
 
-# Bestätigung abfragen
 confirm() {
-    echo -e "  ${ORANGE}?${RESET} $1 ${DIM}[j/N]${RESET} "
+    echo -e "  ${AMBER}?${RESET} $1 ${DIM}[j/N]${RESET} "
     read -r response
     [[ "$response" =~ ^[jJyY]$ ]]
 }
-
 
 # -----------------------------------------------------------------------------
 # PRÜFUNGEN
@@ -107,7 +101,6 @@ check_wayland() {
     fi
 }
 
-# Wo liegt das Script / Repo?
 RICE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 
@@ -120,7 +113,6 @@ header
 echo -e "${DIM}Repo-Pfad: ${RICE_DIR}${RESET}"
 echo ""
 
-# Grundprüfungen
 step "System prüfen"
 check_arch
 check_not_root
@@ -129,7 +121,7 @@ echo ""
 
 
 # -----------------------------------------------------------------------------
-# SCHRITT 1 — AUR-Helper (paru)
+# SCHRITT 1 — AUR-Helper
 # -----------------------------------------------------------------------------
 
 step "AUR-Helper prüfen"
@@ -153,15 +145,14 @@ echo ""
 
 
 # -----------------------------------------------------------------------------
-# SCHRITT 2 — Abhängigkeiten installieren
+# SCHRITT 2 — Abhängigkeiten
 # -----------------------------------------------------------------------------
 
 step "Abhängigkeiten installieren"
 echo ""
 
-# Pakete definieren
 PACKAGES=(
-    # Compositor & Shell
+    # Compositor
     "hyprland"
     "hyprpaper"
     "xdg-desktop-portal-hyprland"
@@ -188,7 +179,7 @@ PACKAGES=(
     # System Monitor
     "btop"
 
-    # Fonts — Nerd Font für Icons im Prompt und Waybar
+    # Fonts
     "ttf-jetbrains-mono-nerd"
     "ttf-font-awesome"
     "noto-fonts"
@@ -197,12 +188,12 @@ PACKAGES=(
     # Icons
     "papirus-icon-theme"
 
-    # Moderne CLI-Tools (Rust-basiert)
-    "eza"                   # ls Ersatz
-    "bat"                   # cat Ersatz
-    "fd"                    # find Ersatz
-    "ripgrep"               # grep Ersatz
-    "fzf"                   # Fuzzy Finder
+    # CLI-Tools
+    "eza"
+    "bat"
+    "fd"
+    "ripgrep"
+    "fzf"
 
     # Clipboard
     "wl-clipboard"
@@ -227,7 +218,7 @@ PACKAGES=(
     # Helfer
     "brightnessctl"
     "playerctl"
-    "stow"                  # Symlink-Manager
+    "stow"
 )
 
 echo -e "  ${DIM}Folgende Pakete werden installiert:${RESET}"
@@ -250,7 +241,7 @@ echo ""
 
 
 # -----------------------------------------------------------------------------
-# SCHRITT 3 — Config-Verzeichnisse anlegen
+# SCHRITT 3 — Verzeichnisse
 # -----------------------------------------------------------------------------
 
 step "Verzeichnisse anlegen"
@@ -276,57 +267,53 @@ echo ""
 
 
 # -----------------------------------------------------------------------------
-# SCHRITT 4 — Dotfiles symlinken
-# Symlinks statt Kopieren:
-# Änderungen im Repo wirken sofort, git pull aktualisiert alles
+# SCHRITT 4 — Symlinks
 # -----------------------------------------------------------------------------
 
 step "Dotfiles symlinken"
 echo ""
 
-# Funktion: sicher symlinken (Backup wenn Datei bereits existiert)
 safe_link() {
     local src="$1"
     local dst="$2"
 
     if [[ -L "$dst" ]]; then
-        # Bereits ein Symlink — überschreiben
         ln -sf "$src" "$dst"
         ok "Aktualisiert: $dst"
     elif [[ -f "$dst" ]] || [[ -d "$dst" ]]; then
-        # Existierende Datei — Backup erstellen
         mv "$dst" "${dst}.backup-$(date +%Y%m%d-%H%M%S)"
         warn "Backup erstellt: ${dst}.backup"
         ln -s "$src" "$dst"
         ok "Verlinkt: $dst"
     else
-        # Neu anlegen
         ln -s "$src" "$dst"
         ok "Verlinkt: $dst"
     fi
 }
 
-# Config-Files verlinken
 safe_link "$RICE_DIR/.config/hypr/hyprland.conf"      "$HOME/.config/hypr/hyprland.conf"
-safe_link "$RICE_DIR/.config/kitty/kitty.conf"         "$HOME/.config/kitty/kitty.conf"
-safe_link "$RICE_DIR/.config/waybar/config.jsonc"      "$HOME/.config/waybar/config.jsonc"
-safe_link "$RICE_DIR/.config/waybar/style.css"         "$HOME/.config/waybar/style.css"
-safe_link "$RICE_DIR/.config/rofi/config.rasi"         "$HOME/.config/rofi/config.rasi"
-safe_link "$RICE_DIR/.config/swaync/config.json"       "$HOME/.config/swaync/config.json"
-safe_link "$RICE_DIR/.config/swaync/style.css"         "$HOME/.config/swaync/style.css"
-safe_link "$RICE_DIR/.config/btop/btop.conf"           "$HOME/.config/btop/btop.conf"
-safe_link "$RICE_DIR/.config/btop/themes/nsx-midnight.theme" \
-          "$HOME/.config/btop/themes/nsx-midnight.theme"
+safe_link "$RICE_DIR/.config/kitty/kitty.conf"        "$HOME/.config/kitty/kitty.conf"
+safe_link "$RICE_DIR/.config/waybar/config.jsonc"     "$HOME/.config/waybar/config.jsonc"
+safe_link "$RICE_DIR/.config/waybar/style.css"        "$HOME/.config/waybar/style.css"
+safe_link "$RICE_DIR/.config/rofi/config.rasi"        "$HOME/.config/rofi/config.rasi"
+safe_link "$RICE_DIR/.config/swaync/config.json"      "$HOME/.config/swaync/config.json"
+safe_link "$RICE_DIR/.config/swaync/style.css"        "$HOME/.config/swaync/style.css"
+safe_link "$RICE_DIR/.config/btop/btop.conf"          "$HOME/.config/btop/btop.conf"
+
+# Sanzo Wada Theme — 7月の配色
+safe_link "$RICE_DIR/.config/btop/themes/wada-7gatsu.theme" \
+          "$HOME/.config/btop/themes/wada-7gatsu.theme"
 
 # Home-Dotfiles
-safe_link "$RICE_DIR/.zshrc"          "$HOME/.zshrc"
-safe_link "$RICE_DIR/starship.toml"   "$HOME/.config/starship.toml"
+safe_link "$RICE_DIR/.zshrc"         "$HOME/.zshrc"
+safe_link "$RICE_DIR/starship.toml"  "$HOME/.config/starship.toml"
+safe_link "$RICE_DIR/colors.conf"    "$HOME/.config/colors.conf"
 
 echo ""
 
 
 # -----------------------------------------------------------------------------
-# SCHRITT 5 — Zsh als Standard-Shell
+# SCHRITT 5 — Zsh
 # -----------------------------------------------------------------------------
 
 step "Zsh als Standard-Shell setzen"
@@ -346,7 +333,7 @@ echo ""
 
 
 # -----------------------------------------------------------------------------
-# SCHRITT 6 — Zinit installieren (Zsh Plugin Manager)
+# SCHRITT 6 — Zinit
 # -----------------------------------------------------------------------------
 
 step "Zinit prüfen"
@@ -365,7 +352,7 @@ echo ""
 
 
 # -----------------------------------------------------------------------------
-# SCHRITT 7 — Wallpaper Hinweis
+# SCHRITT 7 — Wallpaper
 # -----------------------------------------------------------------------------
 
 step "Wallpaper"
@@ -375,14 +362,12 @@ WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 if [[ -z "$(ls -A "$WALLPAPER_DIR" 2>/dev/null)" ]]; then
     warn "Keine Wallpapers in $WALLPAPER_DIR gefunden"
     echo ""
-    echo -e "  ${DIM}Empfehlung für einen Tokyo-Nacht-Wallpaper:${RESET}"
+    echo -e "  ${DIM}Empfohlen: Tokyo bei Nacht — viel Dunkelheit, vereinzelte Lichtquellen.${RESET}"
     echo -e "  ${DIM}→ https://unsplash.com/s/photos/tokyo-night${RESET}"
-    echo -e "  ${DIM}→ https://wallhaven.cc/search?q=tokyo+night&categories=100&purity=100${RESET}"
+    echo -e "  ${DIM}→ https://wallhaven.cc/search?q=tokyo+night${RESET}"
     echo ""
-    echo -e "  ${DIM}Datei als gespeichert:${RESET}"
-    echo -e "  ${DIM}~/Pictures/wallpapers/tokyo-night.jpg${RESET}"
-    echo ""
-    echo -e "  ${DIM}Dann in hyprland.conf den Pfad prüfen:${RESET}"
+    echo -e "  ${DIM}Ablegen unter: ~/Pictures/wallpapers/tokyo-night.jpg${RESET}"
+    echo -e "  ${DIM}Pfad in hyprland.conf prüfen:${RESET}"
     echo -e "  ${DIM}exec-once = swww img ~/Pictures/wallpapers/tokyo-night.jpg${RESET}"
 else
     ok "Wallpapers gefunden in $WALLPAPER_DIR"
@@ -395,27 +380,29 @@ echo ""
 # ABSCHLUSS
 # =============================================================================
 
-echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+echo -e "${VIOLET}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 echo ""
 echo -e "${GREEN}  ✓ Installation abgeschlossen${RESET}"
 echo ""
 echo -e "${DIM}  Nächste Schritte:${RESET}"
 echo ""
-echo -e "  ${PURPLE}1.${RESET} Neu einloggen damit Zsh als Shell aktiv wird"
-echo -e "  ${PURPLE}2.${RESET} Wallpaper in ~/Pictures/wallpapers/ ablegen"
-echo -e "  ${PURPLE}3.${RESET} Monitor in hyprland.conf anpassen:"
+echo -e "  ${VIOLET}1.${RESET} Neu einloggen damit Zsh aktiv wird"
+echo -e "  ${VIOLET}2.${RESET} Wallpaper in ~/Pictures/wallpapers/ ablegen"
+echo -e "  ${VIOLET}3.${RESET} Monitor in hyprland.conf anpassen:"
 echo -e "     ${DIM}monitor = eDP-1, 1920x1080@60, 0x0, 1${RESET}"
-echo -e "  ${PURPLE}4.${RESET} Hyprland starten:"
+echo -e "  ${VIOLET}4.${RESET} Hyprland starten:"
 echo -e "     ${DIM}Hyprland${RESET}"
 echo ""
 echo -e "${DIM}  Bei Problemen: github.com/krumbeck/nsx-midnight-rice${RESET}"
 echo ""
-echo -e "${PURPLE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+echo -e "${VIOLET}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 echo ""
-echo -e "${MAGENTA}  「電子詩」— Elektronische Poesie.${RESET}"
-echo -e "${DIM}  Flüssig, rhythmisch, eins mit der Maschine.${RESET}"
+echo -e "${LILAC}  7月の配色 · 花色 · 桔梗色 · 飴色${RESET}"
+echo -e "${DIM}  „Du öffnetest das Terminal und dachtest kurz daran, wie viele${RESET}"
+echo -e "${DIM}  Entscheidungen in dieser Konfigurationsdatei steckten,${RESET}"
+echo -e "${DIM}  die niemand außer dir je sehen würde."${RESET}"
 echo ""
 
 # =============================================================================
-# Ende — NSX Midnight Rice / install.sh
+# Ende — NSX Rice / install.sh — 7月の配色
 # =============================================================================

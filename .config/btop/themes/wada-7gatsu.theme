@@ -1,0 +1,75 @@
+# =============================================================================
+# NSX Rice — btop/themes/wada-7gatsu.theme
+# Palette: Sanzo Wada — 7月の配色 / Tech Geisha
+# Pfad: ~/.config/btop/themes/wada-7gatsu.theme
+# =============================================================================
+
+# 花色 Background
+theme[main_bg]="#1e1f3d"
+
+# 薄色 Text
+theme[main_fg]="#c4b8bc"
+
+# 桔梗色 Titel
+theme[title]="#5c3d9e"
+
+# 飴色 Highlight
+theme[hi_fg]="#c97a2a"
+
+# 二藍 Selected
+theme[selected_bg]="#2d2d5e"
+theme[selected_fg]="#c97a2a"
+
+# Inaktiv
+theme[inactive_fg]="#6e6a86"
+
+# Box Borders — 桔梗色
+theme[cpu_box]="#5c3d9e"
+theme[mem_box]="#5c3d9e"
+theme[net_box]="#5c3d9e"
+theme[proc_box]="#5c3d9e"
+theme[div_line]="#2d2d5e"
+
+# Temperatur — kalt bis kritisch
+theme[temp_start]="#5c9e7a"
+theme[temp_mid]="#c97a2a"
+theme[temp_end]="#c45c5c"
+
+# CPU — 桔梗色 zu 飴色 (Violett zu Amber)
+theme[cpu_start]="#5c3d9e"
+theme[cpu_mid]="#b57fb8"
+theme[cpu_end]="#c97a2a"
+
+# Speicher
+theme[free_start]="#5c9e7a"
+theme[free_mid]="#5c3d9e"
+theme[free_end]="#c45c5c"
+
+theme[cached_start]="#4a6fa5"
+theme[cached_mid]="#5c3d9e"
+theme[cached_end]="#b57fb8"
+
+theme[available_start]="#5c9e7a"
+theme[available_mid]="#c97a2a"
+theme[available_end]="#c45c5c"
+
+theme[used_start]="#5c3d9e"
+theme[used_mid]="#b57fb8"
+theme[used_end]="#c97a2a"
+
+# Netzwerk
+theme[download_start]="#4a6fa5"
+theme[download_mid]="#5c3d9e"
+theme[download_end]="#b57fb8"
+
+theme[upload_start]="#c97a2a"
+theme[upload_mid]="#b57fb8"
+theme[upload_end]="#c45c5c"
+
+theme[process_start]="#5c3d9e"
+theme[process_mid]="#b57fb8"
+theme[process_end]="#4a6fa5"
+
+# =============================================================================
+# Ende — wada-7gatsu.theme
+# =============================================================================
