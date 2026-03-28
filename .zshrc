@@ -1,6 +1,7 @@
 # =============================================================================
-# NSX Midnight Rice — .zshrc
+# NSX Rice — .zshrc
 # Shell: Zsh
+# Palette: Sanzo Wada — 7月の配色 / Tech Geisha
 # Philosophie: Schnell laden, kein Bloat, alles erreichbar
 #
 # Struktur:
@@ -333,12 +334,16 @@ export LESS_TERMCAP_me=$'\e[0m'
 export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_ue=$'\e[0m'
 
-# fzf — Fuzzy Finder mit NSX-Palette
+# fzf — Fuzzy Finder mit Sanzo Wada Palette — 7月の配色
+# bg:      花色  — Violet Blue Background
+# hl:      飴色  — Orange Rufous Highlight
+# prompt:  桔梗色 — Blue Violet
+# border:  桔梗色
 export FZF_DEFAULT_OPTS="
-    --color=bg+:#191724,bg:#0B0811,spinner:#FF00FF,hl:#FF00FF
-    --color=fg:#E0DEF4,header:#7B52AB,info:#7B52AB,pointer:#FF00FF
-    --color=marker:#FF00FF,fg+:#E0DEF4,prompt:#7B52AB,hl+:#FF00FF
-    --color=border:#7B52AB
+    --color=bg+:#2d2d5e,bg:#1e1f3d,spinner:#c97a2a,hl:#c97a2a
+    --color=fg:#c4b8bc,header:#5c3d9e,info:#b57fb8,pointer:#c97a2a
+    --color=marker:#c97a2a,fg+:#c4b8bc,prompt:#5c3d9e,hl+:#c97a2a
+    --color=border:#5c3d9e
     --border=rounded
     --prompt='❯ '
     --pointer='▸'
@@ -372,6 +377,5 @@ eval "$(starship init zsh)"
 
 
 # =============================================================================
-# Ende — NSX Midnight Rice / .zshrc
-# "Flüssig, rhythmisch, eins mit der Maschine."
+# Ende — NSX Rice / .zshrc — 7月の配色
 # =============================================================================
