@@ -46,14 +46,10 @@ Das Orange — 飴色 — wird sparsam eingesetzt. Als Fläche würde es die vis
 
 ## Philosophie
 
-Der Honda NSX wurde nicht gebaut um schneller als ein Ferrari zu sein.
-Er wurde gebaut um präziser zu sein — zuverlässiger, leichter, fahrbarer.
-Das Cockpit war nach dem Vorbild eines F-16-Kampfjets entworfen:
-311 Grad Sichtfeld, alle Funktionen mit den Fingerkuppen erreichbar.
+Honda baute den NSX, um zu beweisen, dass ein Sportwagen nicht anspruchsvoll zu fahren sein muss:
+sondern auch zuverlässig und zugänglich sein kann. Das Cockpit wurde nach dem Vorbild eines F-16-Kampfjets entworfen: 311 Grad Sichtfeld, alle Funktionen mit den Fingerkuppen erreichbar.
 
-Dieses Rice folgt derselben Logik. Nicht mehr Pakete als nötig.
-Keybinding-first. Das VTEC-Prinzip gilt auch für die Animationen: im Idle weich und
-dezent, unter Last präzise und direkt.
+Dieses Rice folgt derselben Logik. Leichtbau, Alltagstauglichkeit und Präzision auf den Punkt – wie beim NSX entsteht Performance nicht aus Überladung, sondern aus durchdachter Reduktion.
 
 ---
 
