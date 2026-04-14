@@ -339,7 +339,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 # hl:      飴色  — Orange Rufous Highlight
 # prompt:  桔梗色 — Blue Violet
 # border:  桔梗色
-export FZF_DEFAULT_OPTS="
+export FZF_DEFAULT_OPTS='
     --color=bg+:#2d2d5e,bg:#1e1f3d,spinner:#c97a2a,hl:#c97a2a
     --color=fg:#c4b8bc,header:#5c3d9e,info:#b57fb8,pointer:#c97a2a
     --color=marker:#c97a2a,fg+:#c4b8bc,prompt:#5c3d9e,hl+:#c97a2a
@@ -350,7 +350,7 @@ export FZF_DEFAULT_OPTS="
     --marker='✓'
     --height=40%
     --layout=reverse
-"
+'
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
